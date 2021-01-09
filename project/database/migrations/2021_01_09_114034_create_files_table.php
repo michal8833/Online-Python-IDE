@@ -15,6 +15,16 @@ class CreateFilesTable extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('project_id');
+            $table->foreign('project_id')
+                ->references('id')->on('projects')
+                ->onDelete('cascade');
+
+            $table->string('name');
+            $table->string('content');
+            $table->dateTime('created_at');
+            $table->dateTime('updated_at');
+
             $table->timestamps();
         });
     }
