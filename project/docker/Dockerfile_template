@@ -1,12 +1,17 @@
-FROM python:3
+# Don't touch the Dockerfile, only make chances in here and then run docker_template.php
 
-WORKDIR /usr/src/app
+# TODO
+
+FROM ubuntu:20.04
 
 EXPOSE {{DOCKER_PORT}}
 
-# COPY requirements.txt ./
-# RUN pip install --no-cache-dir -r requirements.txt
+ENV SOURCE_FILES_DIR=~/src/
 
-COPY . .
+RUN apt-get update && \
+yes Y | apt-get install python3 && \
+cd && \
+mkdir src
 
-# CMD [ "python", "./your-daemon-or-script.py" ]
+
+ENTRYPOINT ["bash"]

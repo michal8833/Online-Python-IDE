@@ -1,7 +1,5 @@
 <?php
 
-const ENV_FILE = "../.env";
-
 static $env = [];
 
 function load_env() {
@@ -9,22 +7,18 @@ function load_env() {
     if (count($env) != 0) {
         return $env;
     }
-    $lines = explode("\n", file_get_contents(ENV_FILE));
+    $ENV_FILE = dirname(__FILE__).'/../../.env';
+    if (!file_exists($ENV_FILE)) {
+        print(".env file doesn't exist");
+        exit(-1);
+    }
+    $lines = explode("\n", file_get_contents($ENV_FILE));
+    $lines = array_filter($lines, function($item) { return $item != ''; });
     $env = [];
 
     foreach ($lines as $line) {
-        $prop = explode('=', $line);
-        $key = '';
-        $value = '';
-        if (count($prop) == 2) {
-            $key = $prop[0];
-            $value = $prop[1];
-        } else if (count($prop) == 1) {
-            $key = $prop[0];
-        } else {
-            printf("Incorrect property format %s", $line);
-            exit(-2);
-        }
+        $key = strtok($line, '=');
+        $value = strtok('=');
         $env[$key] = $value;
     }
     return $env;
