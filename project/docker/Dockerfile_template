@@ -1,0 +1,17 @@
+# Don't touch the Dockerfile, only make chances in here and then run docker_template.php
+
+# TODO
+
+FROM ubuntu:20.04
+
+EXPOSE {{DOCKER_PORT}}
+
+ENV SOURCE_FILES_DIR=~/src/
+
+RUN apt-get update && \
+yes Y | apt-get install python3 && \
+cd && \
+mkdir src
+
+
+ENTRYPOINT ["bash"]
