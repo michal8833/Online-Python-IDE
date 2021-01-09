@@ -29,5 +29,6 @@ All scripts should be in the /project/scripts directory and are configured from 
 - **docker_build** - build the docker image
 - **docker_start** - start the docker container with the python interpreter
 - **run** - runs the application server (starts database and python interpreter containers if they're not running)
+- **first_run** - use after pulling the repo to set it up
 
 
