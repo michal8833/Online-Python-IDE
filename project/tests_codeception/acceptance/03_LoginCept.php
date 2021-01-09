@@ -10,7 +10,7 @@ $I->seeCurrentUrlEquals('/login');
 $I->fillField('email', 'john.doe@gmail.com');
 $I->fillField('password', 'secret');
 
-$I->click('Login');
+$I->click('login');
 
 $I->seeCurrentUrlEquals('/dashboard');
 
