@@ -4,11 +4,11 @@
 
     <div class="container-fluid mt-3">
         <div class="container mt-3 pl-3" style="height: 60px; margin-left: 90%;">
-            <button type="button" class="btn btn-success">New project</button>
+            <a href="{{ route('projects') }}" ><button type="button" class="btn btn-success">New project</button></a>
         </div>
 
         @if($projects->isEmpty())
-            <p>You haven't created a project yet.</p>
+            <p>You haven't created any project yet.</p>
         @else
         <div class="table-responsive">
             <table class="table align-items-center">
@@ -27,7 +27,7 @@
                         <th scope="row" >
                             <div class="media align-items-center">
                                 <a href="#" class="avatar rounded-circle mr-3">
-                                    <img alt="Image placeholder" src="../../assets/img/theme/bootstrap.jpg">
+                                    <i class="ni ni-app"></i>
                                 </a>
                                 <div class="media-body">
                                     <span class="mb-0 text-sm">{{ $project->name }}</span>
@@ -48,8 +48,8 @@
                         </td>
 
                         <td class="text-right">
-                            <button type="button" class="btn btn-primary">Edit</button>
-                            <button type="button" class="btn btn-danger">Delete</button>
+                            <a href="{{ route('projects') }}"><button type="button" class="btn btn-primary">Edit</button></a>
+                            <a href="{{ route('projects') }}"><button type="button" class="btn btn-danger">Delete</button></a>
                         </td>
                     </tr>
                 @endforeach
