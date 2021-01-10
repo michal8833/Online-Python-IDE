@@ -7,6 +7,9 @@
             <button type="button" class="btn btn-success">New project</button>
         </div>
 
+        @if($projects->isEmpty())
+            <p>You haven't created a project yet.</p>
+        @else
         <div class="table-responsive">
             <table class="table align-items-center">
                 <thead class="thead-light">
@@ -19,43 +22,42 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row" >
-                        <div class="media align-items-center">
-                            <a href="#" class="avatar rounded-circle mr-3">
-                                <img alt="Image placeholder" src="../../assets/img/theme/bootstrap.jpg">
-                            </a>
-                            <div class="media-body">
-                                <span class="mb-0 text-sm">Project name</span>
+                @foreach($projects as $project)
+                    <tr>
+                        <th scope="row" >
+                            <div class="media align-items-center">
+                                <a href="#" class="avatar rounded-circle mr-3">
+                                    <img alt="Image placeholder" src="../../assets/img/theme/bootstrap.jpg">
+                                </a>
+                                <div class="media-body">
+                                    <span class="mb-0 text-sm">{{ $project->name }}</span>
+                                </div>
                             </div>
-                        </div>
-                    </th>
+                        </th>
 
-                    <td>
-                        Some description
-                    </td>
+                        <td>
+                            {{ $project->description }}
+                        </td>
 
-                    <td>
-                        02.03.2020
-                    </td>
+                        <td>
+                            {{ $project->created_at }}
+                        </td>
 
-                    <td>
-                        08.12.2020
-                    </td>
+                        <td>
+                            {{ $project->updated_at }}
+                        </td>
 
-                    <td class="text-right">
-                        <button type="button" class="btn btn-primary">Edit</button>
-                        <button type="button" class="btn btn-danger">Delete</button>
-                    </td>
-                </tr>
+                        <td class="text-right">
+                            <button type="button" class="btn btn-primary">Edit</button>
+                            <button type="button" class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                @endforeach
 
                 </tbody>
             </table>
-
         </div>
-
-
-
+        @endif
 
         @include('layouts.footers.auth')
     </div>
