@@ -10,7 +10,9 @@ if ($imageID == '') {
     exit(1);
 }
 
-$dockerRunning = shell_exec("if docker ps | grep -q {$env['DOCKER_CONTAINER_NAME']}; then echo 'true'; else echo 'false'; fi");
-if (!$dockerRunning) {
-    print shell_exec("docker run -d -p {$env['DOCKER_PORT']}:{$env['DOCKER_PORT']} --name {$env['DOCKER_CONTAINER_NAME']} {$env['DOCKER_CONTAINER_NAME']}");
+$dockerRunning = shell_exec("if docker ps | grep -q {$env['DOCKER_CONTAINER_NAME']}; then printf 'true'; else printf 'false'; fi");
+if ($dockerRunning === 'false') {
+    print shell_exec("docker run -d --network=host {$env['DOCKER_CONTAINER_NAME']}");
+} else {
+    echo "Python interpreter docker container is already running\n";
 }

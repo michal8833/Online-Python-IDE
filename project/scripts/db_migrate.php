@@ -4,8 +4,8 @@ require_once "_util/env_loader.php";
 
 $env = get_env();
 
-$artisan = dirname(__FILE__).'/../artisan';
-$dumpsql = dirname(__FILE__).'/../tests_codeception/_data/dump.sql';
+$artisan = __DIR__.'/../artisan';
+$dumpsql = __DIR__.'/../tests_codeception/_data/dump.sql';
 
 print shell_exec("cd .. && \
 php $artisan migrate:fresh && \

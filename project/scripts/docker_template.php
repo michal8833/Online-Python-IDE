@@ -2,7 +2,7 @@
 
 require_once "_util/env_loader.php";
 
-$DOCKERFILE = dirname(__FILE__).'/../docker/Dockerfile';
+$DOCKERFILE = __DIR__.'/../docker/Dockerfile';
 $DOCKERFILE_TEMPLATE = $DOCKERFILE.'_template';
 
 $env = get_env();

@@ -4,8 +4,9 @@ require_once "_util/env_loader.php";
 
 $env = get_env();
 
-$databaseRunning = shell_exec("if docker ps | grep -q mysql; then echo 'true'; else echo 'false'; fi");
-if (!$databaseRunning) {
+$databaseRunning = shell_exec("if docker ps | grep -q mysql; then printf 'true'; else printf 'false'; fi");
+if ($databaseRunning === 'false') {
+    echo $databaseRunning;
     print shell_exec("docker run \
 --name={$env['DB_CONNECTION']} \
 --net=host \
@@ -17,4 +18,6 @@ if (!$databaseRunning) {
 -d mysql/mysql-server:8.0");
 
     print shell_exec("while ! timeout 1 bash -c \"echo > /dev/tcp/localhost/{$env['DB_PORT']}\" 2> /dev/null; do sleep 1; done; echo \"Done.\";");
+} else {
+    echo "MySQL database is already running\n";
 }

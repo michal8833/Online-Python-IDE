@@ -1,17 +1,17 @@
-# Don't touch the Dockerfile, only make chances in here and then run docker_template.php
-
-# TODO
+# Don't touch the Dockerfile, only make changes in Dockerfile_template and then run docker_template.php
 
 FROM ubuntu:20.04
 
 EXPOSE {{DOCKER_PORT}}
 
-ENV SOURCE_FILES_DIR=~/src/
-
 RUN apt-get update && \
 yes Y | apt-get install python3 && \
-cd && \
-mkdir src
+DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata && \
+yes Y | apt-get install php7.4 && \
+mkdir {{PYTHON_INTERPRETER_DIR}} && \
+mkdir {{PYTHON_INTERPRETER_DIR}}/src && \
+mkdir {{PYTHON_INTERPRETER_DIR}}/server
 
+COPY ./server/* {{PYTHON_INTERPRETER_DIR}}/server/
 
-ENTRYPOINT ["bash"]
+ENTRYPOINT ["php", "{{PYTHON_INTERPRETER_DIR}}/server/server.php", "host={{APP_HOST}}", "port={{DOCKER_PORT}}"]
