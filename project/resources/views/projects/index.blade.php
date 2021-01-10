@@ -3,7 +3,9 @@
 @section('content')
 
     <div class="container-fluid mt-3">
-
+        <div class="container mt-3 pl-3" style="height: 60px; margin-left: 90%;">
+            <button type="button" class="btn btn-success">New project</button>
+        </div>
 
         <div class="table-responsive">
             <table class="table align-items-center">
@@ -41,6 +43,10 @@
                         08.12.2020
                     </td>
 
+                    <td class="text-right">
+                        <button type="button" class="btn btn-primary">Edit</button>
+                        <button type="button" class="btn btn-danger">Delete</button>
+                    </td>
                 </tr>
 
                 </tbody>
