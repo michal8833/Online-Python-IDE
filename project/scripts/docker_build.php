@@ -10,7 +10,7 @@ if (!file_exists($dockerfilePath.'Dockerfile')) {
     exit(-1);
 }
 
-print shell_exec("docker build -t --rm {$env['DOCKER_CONTAINER_NAME']} $dockerfilePath");
+print shell_exec("docker build --rm -t {$env['DOCKER_CONTAINER_NAME']} $dockerfilePath");
 
 echo "Python interpreter image built successfully\n";
 
