@@ -11,3 +11,5 @@ print shell_exec("cd .. && \
 php $artisan migrate:fresh && \
 php $artisan db:seed && \
 docker exec mysql mysqldump -u root --password={$env['DB_ROOT_PASSWORD']} test > $dumpsql");
+
+echo "Migration successful\n";
