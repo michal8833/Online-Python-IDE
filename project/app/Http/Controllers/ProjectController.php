@@ -29,7 +29,7 @@ class ProjectController extends Controller
 
         $project->delete();
 
-        return redirect(route('projects.index'));
+        return redirect(route('projects'));
     }
 
     public function run(array $files) {
