@@ -14,11 +14,17 @@ class ProjectController extends Controller
         $this->pythonInterpreter = new PythonInterpreter();
     }
 
-    public function index()
-    {
+    public function index() {
         $projects = Project::where('user_id', Auth::id())->get();
 
         return view('projects.index')->withProjects($projects);
+    }
+
+    public function destroy(Project $project) {
+
+        $project->delete();
+
+        return redirect(route('projects.index'));
     }
 
     public function run(array $files) {
