@@ -18,6 +18,7 @@ if ($databaseRunning === 'false') {
 -d mysql/mysql-server:8.0");
 
     print shell_exec("while ! timeout 1 bash -c \"echo > /dev/tcp/localhost/{$env['DB_PORT']}\" 2> /dev/null; do sleep 1; done; echo \"Done.\";");
+    echo "Database up\n";
 } else {
     echo "MySQL database is already running\n";
 }

@@ -12,3 +12,5 @@ foreach ($env as $key => $value) {
 }
 file_put_contents($DOCKERFILE, $dockerfileTemplate);
 
+echo "Docker templating successful\n";
+

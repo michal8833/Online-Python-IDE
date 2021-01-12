@@ -11,3 +11,5 @@ $logPath = __DIR__.'/../logs/server.log';
 $logging = "2>&1 2>$logPath >$logPath";
 
 print shell_exec("php $artisan serve --port {$env['APP_PORT']} $logging");
+
+echo "App server running on: {$env['APP_URL']}:{$env['APP_PORT']}\n";

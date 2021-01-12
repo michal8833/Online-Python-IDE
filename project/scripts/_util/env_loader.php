@@ -9,7 +9,7 @@ function load_env() {
     }
     $ENV_FILE = dirname(__FILE__).'/../../.env';
     if (!file_exists($ENV_FILE)) {
-        print(".env file doesn't exist");
+        echo ".env file doesn't exist, run 'cp .env.example .env'\n";
         exit(-1);
     }
     $lines = explode("\n", file_get_contents($ENV_FILE));

@@ -9,6 +9,7 @@ pipelines:
         services:
           - mysql
           - redis
+          - docker
         script:
           - pushd project/
           -   composer install
@@ -17,6 +18,9 @@ pipelines:
           -   vendor/bin/phpunit --log-junit tests/_output/test_report.xml
           -   php artisan serve --port 8888 &
           -   while ! timeout 1 bash -c "echo > /dev/tcp/localhost/8888"; do echo "Waiting for server..."; sleep 1; done
+          -   php scripts/docker_template.php
+          -   php scripts/docker_build.php
+          -   php scripts/docker_start.php
           -   vendor/bin/codecept run --xml test_report.xml
           -   killall php php7.4
           - popd

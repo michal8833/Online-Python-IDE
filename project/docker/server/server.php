@@ -24,9 +24,21 @@ function get_content($connection) {
     $decodedContent = json_decode($content, true);
     if (!$decodedContent) {
         echo "[ERROR]: Could not decode packet contents, must be correct JSON format\n";
+        echo "Content: $content\n";
         return false;
     }
     return $decodedContent;
+}
+
+function wait_for_stream($stream) {
+    $result = null;
+    do {
+        $read = [$stream];
+        $write = null;
+        $except = null;
+        $result = stream_select($read, $write, $except, 0);
+    } while (0 === $result);
+    return $result;
 }
 
 function main($argc, $argv, $reader) {
@@ -44,13 +56,13 @@ function main($argc, $argv, $reader) {
             # wait for connection
             $conn = stream_socket_accept($socket, -1);
             stream_set_blocking($conn, false);
-
             if (!$conn || !is_resource($conn)) {
                 echo "Connection broken\n";
                 exit(1);
             }
 
             # get content
+            $result = wait_for_stream($conn);
             $content = get_content($conn);
             if (!$content) {
                 goto close_connection;
