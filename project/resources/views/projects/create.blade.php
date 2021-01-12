@@ -28,14 +28,21 @@
                 </div>
             </div>
 
-            <x-button class="btn btn-primary" style="margin-left: 27%;margin-top: 2%;height: 50px;">
-                Create
-            </x-button>
-
+            <div class="row" style="margin-left: 27%;margin-top: 2%;">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <button onclick="this.closest('form').submit();return false;" style="margin-top: 5%;width: 100%;" type="button" class="btn btn-primary">Create</button>
+                    </div>
+                </div>
+            </div>
 
         </form>
 
-        <a style="margin-left: 27%;margin-top: 5%;"><button type="button" class="btn btn-secondary">Cancel</button></a>
+        <div class="row" style="margin-left: 27%;margin-top: 2%;">
+            <div class="col-md-6">
+                    <a href="{{ route('projects') }}" ><button style="width: 100%;" type="button" class="btn btn-secondary">Cancel</button></a>
+            </div>
+        </div>
 
     </div>
 
