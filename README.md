@@ -33,6 +33,6 @@ All scripts should be in the /project/scripts directory and are configured from 
 - **docker_start** - start the docker container with the python interpreter
 - **docker_restart** - all of the docker_* scripts, rebuilds the python interpreter image and restarts it
 - **run** - runs the application server (starts database and python interpreter containers if they're not running)
-- **first_run** - use after pulling the repo to set it up
+- **first_run** - use after cloning the repo to set it up
 
 
