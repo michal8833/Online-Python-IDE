@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function() {
     Route::get('/projects', [App\Http\Controllers\ProjectController::class, 'index'])->name('projects');
+    Route::get('/projects/{project}/delete', [App\Http\Controllers\ProjectController::class, 'delete'])->name('projects_delete');
 });
 
 Route::get('/', function () {

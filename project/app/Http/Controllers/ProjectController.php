@@ -20,6 +20,11 @@ class ProjectController extends Controller
         return view('projects.index')->withProjects($projects);
     }
 
+    public function delete(Project $project) {
+
+        return view('projects.delete')->withProject($project);
+    }
+
     public function destroy(Project $project) {
 
         $project->delete();
