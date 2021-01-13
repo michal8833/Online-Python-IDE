@@ -43,7 +43,7 @@ $I->see('Create file.');
 $fileName = 'main.py';
 
 $I->click('Create');
-$I->see('The name filed is required');
+$I->see('The name field is required');
 
 $I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/create');
 
