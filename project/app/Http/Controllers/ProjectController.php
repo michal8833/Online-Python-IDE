@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Interpreter\PythonInterpreter;
 use App\Models\Project;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
@@ -14,10 +15,30 @@ class ProjectController extends Controller
         $this->pythonInterpreter = new PythonInterpreter();
     }
 
-    public function index() {
+    public function index()
+    {
         $projects = Project::where('user_id', Auth::id())->get();
 
         return view('projects.index')->withProjects($projects);
+    }
+
+    public function create() {
+        return view('projects.create');
+    }
+
+    public function store(Request $request) {
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $project = new Project();
+        $project->name = $request->name;
+        $project->description = $request->description;
+        $project->user_id = Auth::id();
+        $project->save();
+
+        return redirect()->route('projects');
     }
 
     public function delete(Project $project) {
