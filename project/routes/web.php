@@ -17,6 +17,8 @@ Route::middleware('auth')->group(function() {
     Route::get('/projects', [App\Http\Controllers\ProjectController::class, 'index'])->name('projects');
     Route::get('/projects/create', [App\Http\Controllers\ProjectController::class, 'create'])->name('projects_create');
     Route::post('/projects/create', [App\Http\Controllers\ProjectController::class, 'store'])->name('projects_store');
+    Route::get('/projects/{project}/delete', [App\Http\Controllers\ProjectController::class, 'delete'])->name('projects_delete');
+    Route::delete('/projects/{project}/delete', [App\Http\Controllers\ProjectController::class, 'destroy'])->name('projects_destroy');
 });
 
 Route::get('/', function () {

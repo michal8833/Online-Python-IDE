@@ -15,7 +15,8 @@ class ProjectController extends Controller
         $this->pythonInterpreter = new PythonInterpreter();
     }
 
-    public function index() {
+    public function index()
+    {
         $projects = Project::where('user_id', Auth::id())->get();
 
         return view('projects.index')->withProjects($projects);
@@ -38,6 +39,18 @@ class ProjectController extends Controller
         $project->save();
 
         return redirect()->route('projects');
+    }
+
+    public function delete(Project $project) {
+
+        return view('projects.delete')->withProject($project);
+    }
+
+    public function destroy(Project $project) {
+
+        $project->delete();
+
+        return redirect(route('projects'));
     }
 
     public function run(array $files) {
