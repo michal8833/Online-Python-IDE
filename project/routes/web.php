@@ -19,6 +19,8 @@ Route::middleware('auth')->group(function() {
     Route::post('/projects/create', [App\Http\Controllers\ProjectController::class, 'store'])->name('projects_store');
 });
 
+Route::resource('projects.files', App\Http\Controllers\FileController::class)->middleware('auth');
+
 Route::get('/', function () {
     return view('welcome');
 });
