@@ -46,6 +46,11 @@ class ProjectController extends Controller
         return view('projects.show')->withProject($project);
     }
 
+    public function edit(Project $project) {
+
+        return view('projects.edit')->withProject($project);
+    }
+
     public function delete(Project $project) {
 
         return view('projects.delete')->withProject($project);

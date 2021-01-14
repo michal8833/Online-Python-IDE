@@ -6,7 +6,7 @@
         <div class="alert alert-success" role="heading">
             <h1 class="d-inline-block">{{$project->name}}</h1>
             <div class="d-inline-block" style="height: 60px; margin-left: 80%;">
-                <a href="{{ route('projects') }}" ><button type="button" class="btn btn-primary">Edit</button></a>
+                <a href="{{ route('projects_edit', $project) }}" ><button type="button" class="btn btn-primary">Edit</button></a>
             </div>
             <div class="d-inline-block" style="height: 60px; margin-left: 5px;">
                 <a href="{{ route('projects') }}" ><button type="button" class="btn btn-default">Back to projects</button></a>
