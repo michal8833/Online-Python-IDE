@@ -41,6 +41,29 @@ class ProjectController extends Controller
         return redirect()->route('projects');
     }
 
+    public function show(Project $project) {
+
+        return view('projects.show')->withProject($project);
+    }
+
+    public function edit(Project $project) {
+
+        return view('projects.edit')->withProject($project);
+    }
+
+    public function update(Request $request, Project $project) {
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $project->name = $request->name;
+        $project->description = $request->description;
+        $project->update();
+
+        return redirect()->route('projects_show', $project);
+    }
+
     public function delete(Project $project) {
 
         return view('projects.delete')->withProject($project);
