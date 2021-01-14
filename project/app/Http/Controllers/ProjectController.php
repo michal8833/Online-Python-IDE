@@ -61,7 +61,7 @@ class ProjectController extends Controller
         $project->description = $request->description;
         $project->update();
 
-        return redirect()->route('projects.show');
+        return redirect()->route('projects_show', $project);
     }
 
     public function delete(Project $project) {

@@ -4,12 +4,16 @@
 
     <div class="container-fluid mt-3">
         <div class="alert alert-success" role="heading">
-            <h1 class="d-inline-block">{{$project->name}}</h1>
-            <div class="d-inline-block" style="height: 60px; margin-left: 80%;">
-                <a href="{{ route('projects_edit', $project) }}" ><button type="button" class="btn btn-primary">Edit</button></a>
-            </div>
-            <div class="d-inline-block" style="height: 60px; margin-left: 5px;">
-                <a href="{{ route('projects') }}" ><button type="button" class="btn btn-default">Back to projects</button></a>
+            <div class="row">
+                <h1 class="col-9 d-inline-block">{{$project->name}}</h1>
+                <div class="col-3 d-inline-block">
+                    <div class="d-inline-block justify-content-end" style="height: 60px; margin-left: 20%;">
+                        <a href="{{ route('projects_edit', $project) }}" ><button type="button" class="btn btn-primary">Edit</button></a>
+                    </div>
+                    <div class="d-inline-block" style="height: 60px; margin-left: 5px;">
+                        <a href="{{ route('projects') }}" ><button type="button" class="btn btn-default">Back to projects</button></a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="card">
