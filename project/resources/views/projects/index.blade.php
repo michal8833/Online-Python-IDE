@@ -48,7 +48,7 @@
                         </td>
 
                         <td class="text-right">
-                            <a href="{{ route('projects') }}"><button type="button" class="btn btn-primary">Edit</button></a>
+                            <a href="{{ route('projects_show', $project) }}"><button type="button" class="btn btn-primary">View</button></a>
                             <a href="{{ route('projects_delete', $project) }}"><button type="button" class="btn btn-danger">Delete</button></a>
                         </td>
                     </tr>
