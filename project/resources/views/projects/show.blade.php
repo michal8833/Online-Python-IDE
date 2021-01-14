@@ -66,7 +66,7 @@
 
                                         <td class="text-right">
                                             <a href="{{ route('projects') }}"><button type="button" class="btn btn-primary">Edit</button></a>
-                                            <a href="{{ route('projects') }}"><button type="button" class="btn btn-danger">Delete</button></a>
+                                            <a href="{{ route('projects_files_delete', array($project, $file)) }}"><button type="button" class="btn btn-danger">Delete</button></a>
                                         </td>
                                     </tr>
                                 @endforeach
