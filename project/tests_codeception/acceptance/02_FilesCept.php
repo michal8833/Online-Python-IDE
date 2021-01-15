@@ -32,23 +32,18 @@ $projectId = $I->grabFromDatabase('projects','id', [
     'description' => $projectDescription
 ]);
 
-// test create files
+$I->amOnPage('/projects/'.$projectId);
 
-$I->click('View');
-$I->seeCurrentUrlEquals('/projects/'.$projectId);
+// test create files
 
 $I->click('New File');
 $I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/create');
 
-$I->see('Create file.');
-
 $fileName = 'main.py';
 
-$I->click('Create');
-$I->see('The name field is required');
+$I->see('Create file.');
 
-$I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/create');
-
+// cancel
 $I->fillField('name',$fileName);
 
 $I->click('Cancel');
@@ -60,7 +55,13 @@ $I->dontSeeInDatabase('files',[
 
 $I->seeCurrentUrlEquals('/projects/'.$projectId);
 
+// create
 $I->click('New File');
+
+$I->click('Create');
+$I->see('The name field is required');
+
+$I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/create');
 
 $I->fillField('name',$fileName);
 
