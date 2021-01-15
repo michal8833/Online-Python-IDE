@@ -51,9 +51,22 @@ $I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/create');
 
 $I->fillField('name',$fileName);
 
+$I->click('Cancel');
+
 $I->dontSeeInDatabase('files',[
-   'name' => $fileName,
-   'project_id' => $projectId
+    'name' => $fileName,
+    'project_id' => $projectId
+]);
+
+$I->seeCurrentUrlEquals('/projects/'.$projectId);
+
+$I->click('New File');
+
+$I->fillField('name',$fileName);
+
+$I->dontSeeInDatabase('files',[
+    'name' => $fileName,
+    'project_id' => $projectId
 ]);
 
 $I->click('Create');
