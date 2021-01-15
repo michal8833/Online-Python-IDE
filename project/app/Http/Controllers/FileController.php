@@ -20,7 +20,7 @@ class FileController extends Controller
 
         $file->save();
 
-        return redirect()->route('projects');
+        return redirect()->route('projects_show',$project);
     }
     public function delete(Project $project, File $file) {
 
