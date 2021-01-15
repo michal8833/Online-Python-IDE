@@ -34,8 +34,10 @@ $projectId = $I->grabFromDatabase('projects','id', [
 
 // test create files
 
-$I->amOnPage('/projects/'.$projectId.'/files/create');
+$I->click('View');
+$I->seeCurrentUrlEquals('/projects/'.$projectId);
 
+$I->click('New File');
 $I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/create');
 
 $I->see('Create file.');
