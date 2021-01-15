@@ -20,6 +20,7 @@
 
                 <div class=" row justify-content-lg-center mt-4">
                     <button class="btn btn-primary" type="submit">Create</button>
+                    <a class="btn btn-secondary ml-4" href="{{route('projects_show',$project)}}">Cancel</a>
                 </div>
 
             </form>
