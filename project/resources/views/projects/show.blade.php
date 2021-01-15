@@ -25,8 +25,9 @@
         <div class="card mt-3">
             <div class="card-body">
                 <h2 class="card-title d-inline-block">Files</h2>
-                <div class="d-inline-block" style="height: 60px; margin-left: 90%;">
-                    <a href="{{ route('projects.files.create',$project) }}" ><button type="button" class="btn btn-success">New File</button></a>
+                <div class="row justify-content-end" >
+                    <a href="{{ route('projects.files.create',$project) }}" ><button type="button" class="btn btn-success mx-2">New File</button></a>
+                    <a href="{{ route('projects_files_upload',$project) }}" ><button type="button" class="btn btn-success mx-2">Upload files</button></a>
                 </div>
                 <div class="card-text">
                     @if($project->files->isEmpty())
