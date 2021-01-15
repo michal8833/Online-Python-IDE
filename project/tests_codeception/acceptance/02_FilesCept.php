@@ -77,6 +77,8 @@ $I->SeeInDatabase('files',[
     'project_id' => $projectId
 ]);
 
+$I->seeCurrentUrlEquals('/projects/'.$projectId);
+
 
 
 
