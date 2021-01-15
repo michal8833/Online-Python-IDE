@@ -79,6 +79,47 @@ $I->SeeInDatabase('files',[
 
 $I->seeCurrentUrlEquals('/projects/'.$projectId);
 
+$fileId = $I->grabFromDatabase('files', 'id', [
+   'name' => $fileName
+]);
 
+// TODO: test edit, rename, save, save as
+
+// delete file
+$I->click('Delete');
+
+$I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/'.$fileId.'/delete');
+
+$I->see('Are you sure you want to delete file '.$fileName.' ?');
+
+$I->SeeInDatabase('files',[
+    'name' => $fileName,
+    'project_id' => $projectId
+]);
+
+$I->click('No');
+
+$I->SeeInDatabase('files',[
+    'name' => $fileName,
+    'project_id' => $projectId
+]);
+
+$I->seeCurrentUrlEquals('/projects/'.$projectId);
+
+$I->click('Delete');
+
+$I->SeeInDatabase('files',[
+    'name' => $fileName,
+    'project_id' => $projectId
+]);
+
+$I->click('Yes');
+
+$I->dontSeeInDatabase('files',[
+    'name' => $fileName,
+    'project_id' => $projectId
+]);
+
+$I->seeCurrentUrlEquals('/projects/'.$projectId);
 
 
