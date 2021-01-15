@@ -134,11 +134,9 @@ $I->click('Upload');
 $I->see('You have to add at least one file');
 $I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/upload');
 
-$I->attachFile('file','HelloWorld.py');
-$I->see($fileName);
+$I->attachFile('files','HelloWorld.py');
 
 $I->click('Upload');
-$I->dontSee('You have to add at least one file');
 
 $I->seeCurrentUrlEquals('/projects/'.$projectId);
 
