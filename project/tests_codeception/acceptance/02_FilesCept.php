@@ -122,4 +122,25 @@ $I->dontSeeInDatabase('files',[
 
 $I->seeCurrentUrlEquals('/projects/'.$projectId);
 
+// upload files from computer
+
+$I->click('Upload files');
+
+$I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/upload');
+$I->see('Add files from your computer.');
+
+$I->click('Upload');
+
+$I->see('You have to add at least one file');
+$I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/upload');
+
+$I->attachFile('file','HelloWorld.py');
+$I->see($fileName);
+
+$I->click('Upload');
+$I->dontSee('You have to add at least one file');
+
+$I->seeCurrentUrlEquals('/projects/'.$projectId);
+
+
 
