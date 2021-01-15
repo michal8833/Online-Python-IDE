@@ -22,4 +22,15 @@ class FileController extends Controller
 
         return redirect()->route('projects');
     }
+    public function delete(Project $project, File $file) {
+
+        return view('files.delete')->withProject($project)->withFile($file);
+    }
+
+    public function destroy(Project $project, File $file) {
+
+        $file->delete();
+
+        return redirect(route('projects_show', $project));
+    }
 }

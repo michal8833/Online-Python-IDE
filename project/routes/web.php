@@ -17,6 +17,16 @@ Route::middleware('auth')->group(function() {
     Route::get('/projects', [App\Http\Controllers\ProjectController::class, 'index'])->name('projects');
     Route::get('/projects/create', [App\Http\Controllers\ProjectController::class, 'create'])->name('projects_create');
     Route::post('/projects/create', [App\Http\Controllers\ProjectController::class, 'store'])->name('projects_store');
+    Route::get('/projects/{project}', [App\Http\Controllers\ProjectController::class, 'show'])->name('projects_show');
+    Route::get('/projects/{project}/edit', [App\Http\Controllers\ProjectController::class, 'edit'])->name('projects_edit');
+    Route::put('/projects/{project}/edit', [App\Http\Controllers\ProjectController::class, 'update'])->name('projects_update');
+    Route::get('/projects/{project}/delete', [App\Http\Controllers\ProjectController::class, 'delete'])->name('projects_delete');
+    Route::delete('/projects/{project}/delete', [App\Http\Controllers\ProjectController::class, 'destroy'])->name('projects_destroy');
+
+    // file controller methods:
+
+    Route::get('/projects/{project}/files/{file}/delete', [App\Http\Controllers\FileController::class, 'delete'])->name('projects_files_delete');
+    Route::delete('/projects/{project}/files/{file}/delete', [App\Http\Controllers\FileController::class, 'destroy'])->name('projects_files_destroy');
 });
 
 Route::resource('projects.files', App\Http\Controllers\FileController::class)->middleware('auth');

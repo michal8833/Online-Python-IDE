@@ -15,7 +15,8 @@ class ProjectController extends Controller
         $this->pythonInterpreter = new PythonInterpreter();
     }
 
-    public function index() {
+    public function index()
+    {
         $projects = Project::where('user_id', Auth::id())->get();
 
         return view('projects.index')->withProjects($projects);
@@ -38,6 +39,41 @@ class ProjectController extends Controller
         $project->save();
 
         return redirect()->route('projects');
+    }
+
+    public function show(Project $project) {
+
+        return view('projects.show')->withProject($project);
+    }
+
+    public function edit(Project $project) {
+
+        return view('projects.edit')->withProject($project);
+    }
+
+    public function update(Request $request, Project $project) {
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $project->name = $request->name;
+        $project->description = $request->description;
+        $project->update();
+
+        return redirect()->route('projects_show', $project);
+    }
+
+    public function delete(Project $project) {
+
+        return view('projects.delete')->withProject($project);
+    }
+
+    public function destroy(Project $project) {
+
+        $project->delete();
+
+        return redirect(route('projects'));
     }
 
     public function run(array $files) {
