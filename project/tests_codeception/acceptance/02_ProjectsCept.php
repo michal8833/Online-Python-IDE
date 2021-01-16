@@ -57,3 +57,66 @@ $I->seeInDatabase('projects', [
     'description' => $projectDescription,
     'user_id' => Auth::id()
 ]);
+
+// see show view
+
+$id = $I->grabFromDatabase('projects', 'id', [
+    'name' => $projectName,
+    'description' => $projectDescription,
+    'user_id' => Auth::id()
+]);
+
+$I->seeCurrentUrlEquals('/projects/' . $id);
+
+$I->see($projectName);
+$I->see($projectDescription);
+
+/*$I->amOnPage('/books');
+
+$I->see("$bookIsbn", 'tr > td');
+$I->see("$bookTitle", 'tr > td');
+$I->dontSee("$bookDescription", 'tr > td');
+
+$I->click('Details');
+
+$I->seeCurrentUrlEquals('/books/' . $id);*/
+
+// edit the project
+
+$I->click('Edit');
+
+$I->seeCurrentUrlEquals('/projects/' . $id . '/edit');
+
+$I->seeInField('name', $projectName);
+$I->seeInField('description', $projectDescription);
+
+$I->fillField('description', "");
+
+$I->click('Update');
+
+$I->seeCurrentUrlEquals('/projects/' . $id . '/edit');
+$I->see('The description field is required.', 'li');
+
+$newDescription = 'New Description';
+
+$I->fillField('description', $newDescription);
+$I->click('Update');
+
+$I->seeCurrentUrlEquals('/projects/' . $id);
+
+$I->see($newDescription);
+
+$I->dontSeeInDatabase('projects', [
+    'name' => $projectName,
+    'description' => $projectDescription,
+    'user_id' => Auth::id()
+]);
+
+$I->seeInDatabase('books', [
+    'name' => $projectName,
+    'description' => $newDescription,
+    'user_id' => Auth::id()
+]);
+
+
+
