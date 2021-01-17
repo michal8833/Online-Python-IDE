@@ -81,15 +81,22 @@
         <div class="card mt-3">
             <div class="card-body">
                 <div style="height: 60px;">
-                    <a href="{{ route('projects') }}" >
-                        <button type="button" class="btn btn-primary">
+                    <a href="{{ route('projects_run', $project) }}" >
+                        <button type="button" class="btn btn-primary" @if($project->files->isEmpty()) disabled @endif>
                             <h2 style="color: white;">Run Project</h2>
                         </button>
                     </a>
                 </div>
-                <div class="card-text mt-5">TODO: CLI and interpreter output</div>
             </div>
         </div>
+        @if($output ?? '' != '')
+        <div class="card mt-3 bg-default">
+            <div class="card-body">
+                <p class="card-text text-white text-lg text-xl">Output:</p>
+                <div class="card-text text-white">{{ $output ?? ''}}</div>
+            </div>
+        </div>
+        @endif
     @include('layouts.footers.auth')
     </div>
 @endsection
