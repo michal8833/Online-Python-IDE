@@ -6,7 +6,7 @@ $env = get_env();
 $dockerfilePath = __DIR__.'/../docker/';
 
 if (!file_exists($dockerfilePath.'Dockerfile')) {
-    printf("Dockerfile under path '%s' doesn't exist, run scripts/docker_template.php first\n", $dockerfilePath);
+    printf("Dockerfile under path '%s' doesn't exist\n", $dockerfilePath);
     exit(-1);
 }
 

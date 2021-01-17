@@ -76,8 +76,13 @@ class ProjectController extends Controller
         return redirect(route('projects'));
     }
 
-    public function run(array $files) {
+    public function run(Project $project) {
+
+        $files = $project->files()->get()->toArray();
         $output = $this->pythonInterpreter->interpret($files);
-        # TODO: display output on a view here
+
+        return view('projects.show')
+            ->withProject($project)
+            ->withOutput($output);
     }
 }

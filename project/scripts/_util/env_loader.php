@@ -7,7 +7,7 @@ function load_env() {
     if (count($env) != 0) {
         return $env;
     }
-    $ENV_FILE = dirname(__FILE__).'/../../.env';
+    $ENV_FILE = __DIR__.'/../../.env';
     if (!file_exists($ENV_FILE)) {
         echo ".env file doesn't exist, run 'cp .env.example .env'\n";
         exit(-1);

@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function() {
     Route::put('/projects/{project}/edit', [App\Http\Controllers\ProjectController::class, 'update'])->name('projects_update');
     Route::get('/projects/{project}/delete', [App\Http\Controllers\ProjectController::class, 'delete'])->name('projects_delete');
     Route::delete('/projects/{project}/delete', [App\Http\Controllers\ProjectController::class, 'destroy'])->name('projects_destroy');
-
+    Route::get('/projects/{project}/run', [App\Http\Controllers\ProjectController::class, 'run'])->name('projects_run');
     // file controller methods:
 
     Route::get('/projects/{project}/files/{file}/delete', [App\Http\Controllers\FileController::class, 'delete'])->name('projects_files_delete');
