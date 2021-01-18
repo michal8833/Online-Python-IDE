@@ -242,6 +242,55 @@ $I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/'.$fileId.'/edit');
 
 $I->see($fileName.' successfully saved');
 
+// Rename file
 
+$newFileName = "example.py";
 
+$I->click('Rename');
+$I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/'.$fileId.'/rename');
+
+$I->seeInField('name',$fileName);
+
+$I->fillField('name', '');
+$I->click('Rename');
+
+$I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/'.$fileId.'/rename');
+$I->see('The name field is required');
+
+$I->fillField('name',$newFileName);
+
+$I->click('Cancel');
+$I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/'.$fileId.'/edit');
+
+$I->seeInDatabase('files',[
+    'project_id' => $projectId,
+    'name' => $fileName,
+    'content' => $encodedNewFileContent
+]);
+
+$I->dontSeeInDatabase('files',[
+    'project_id' => $projectId,
+    'name' => $newFileName,
+    'content' => $encodedNewFileContent
+]);
+
+$I->click('Rename');
+
+$I->fillField('name', $newFileName);
+
+$I->click('Rename');
+
+$I->seeInDatabase('files',[
+    'project_id' => $projectId,
+    'name' => $newFileName,
+    'content' => $encodedNewFileContent
+]);
+
+$I->dontSeeInDatabase('files',[
+    'project_id' => $projectId,
+    'name' => $fileName,
+    'content' => $encodedNewFileContent
+]);
+
+$I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/'.$fileId.'/edit');
 
