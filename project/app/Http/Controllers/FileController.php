@@ -66,6 +66,6 @@ class FileController extends Controller
 
         $file->update();
 
-        return redirect()->route('projects.files.edit',[$project,$file]);
+        return redirect()->route('projects.files.edit',[$project,$file])->withSuccess('successfully saved');
     }
 }

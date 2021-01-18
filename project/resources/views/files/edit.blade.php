@@ -4,8 +4,17 @@
 
     <div class="container-fluid mt-3">
         <div class="px-2 mt-5">
-
             <div class="row justify-content-lg-center px-6 py-4">
+
+                @if(session()->has('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <span class="alert-inner--text"><strong>{{ $file->name }}</strong> {{session()->get('success')}}</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+
                 <form class="w-100" method="post" action="{{ route('projects_files_save', [$project,$file]) }}">
                     @csrf
                     @method('PUT')
