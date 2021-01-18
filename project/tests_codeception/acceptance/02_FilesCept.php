@@ -185,6 +185,22 @@ $I->see('Editing '.$fileName);
 
 $I->see(base64_decode($fileContent),'textarea');
 
+// close editing
+$newFileContent = "print('Hello there!')";
+$I->fillField('content',$newFileContent);
 
+$I->click('Close');
 
+$I->seeInDatabase('files',[
+    'project_id' => $projectId,
+    'name' => $fileName,
+    'content' => $fileContent
+]);
 
+$I->dontSeeInDatabase('files',[
+    'project_id' => $projectId,
+    'name' => $fileName,
+    'content' => $newFileContent
+]);
+
+$I->seeCurrentUrlEquals('/projects/'.$projectId);
