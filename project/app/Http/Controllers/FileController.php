@@ -62,8 +62,6 @@ class FileController extends Controller
 
     public function save(Request $request, Project $project, File $file){
 
-        $request->validate(['content' => 'string']);
-
         $file->content = base64_encode($request->get('content'));
 
         $file->update();
