@@ -239,3 +239,9 @@ $I->seeInDatabase('files',[
 ]);
 
 $I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/'.$fileId.'/edit');
+
+$I->see($fileName.' successfully saved');
+
+
+
+
