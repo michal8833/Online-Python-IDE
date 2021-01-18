@@ -187,6 +187,8 @@ $I->see(base64_decode($fileContent),'textarea');
 
 // close editing
 $newFileContent = "print('Hello there!')";
+$encodedNewFileContent = base64_encode($newFileContent);
+
 $I->fillField('content',$newFileContent);
 
 $I->click('Close');
@@ -200,7 +202,40 @@ $I->seeInDatabase('files',[
 $I->dontSeeInDatabase('files',[
     'project_id' => $projectId,
     'name' => $fileName,
-    'content' => $newFileContent
+    'content' => $encodedNewFileContent
 ]);
 
 $I->seeCurrentUrlEquals('/projects/'.$projectId);
+
+// save file
+$I->amOnPage('/projects/'.$projectId.'/files/'.$fileId.'/edit');
+
+$I->fillField('content',$newFileContent);
+
+$I->seeInDatabase('files',[
+    'project_id' => $projectId,
+    'name' => $fileName,
+    'content' => $fileContent
+]);
+
+$I->dontSeeInDatabase('files',[
+    'project_id' => $projectId,
+    'name' => $fileName,
+    'content' => $encodedNewFileContent
+]);
+
+$I->click('Save');
+
+$I->dontSeeInDatabase('files',[
+    'project_id' => $projectId,
+    'name' => $fileName,
+    'content' => $fileContent
+]);
+
+$I->seeInDatabase('files',[
+    'project_id' => $projectId,
+    'name' => $fileName,
+    'content' => $encodedNewFileContent
+]);
+
+$I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/'.$fileId.'/edit');
