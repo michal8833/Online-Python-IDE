@@ -16,7 +16,7 @@
                                     <a class="btn btn-secondary mx-2" href="{{ route('projects_edit', $project) }}">Save</a>
                                 </div>
                                 <div class="d-inline-block">
-                                    <a class="btn btn-secondary mx-2" href="{{ route('projects') }}" >Close</a>
+                                    <a class="btn btn-secondary mx-2" href="{{ route('projects_show',$project) }}" >Close</a>
                                 </div>
                             </div>
                         </div>
