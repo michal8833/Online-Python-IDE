@@ -30,6 +30,9 @@ Route::middleware('auth')->group(function() {
     Route::get('/projects/{project}/files/upload', [App\Http\Controllers\FileController::class, 'upload'])->name('projects_files_upload');
     Route::post('/projects/{project}/files/upload', [App\Http\Controllers\FileController::class, 'uploadFiles'])->name('projects_files_upload');
     Route::put('/projects/{project}/files/{file}/save', [App\Http\Controllers\FileController::class, 'save'])->name('projects_files_save');
+    Route::get('/projects/{project}/files/{file}/rename', [App\Http\Controllers\FileController::class, 'rename'])->name('projects_files_rename');
+    Route::put('/projects/{project}/files/{file}/rename', [App\Http\Controllers\FileController::class, 'updateName'])->name('projects_files_updateName');
+
 });
 
 Route::resource('projects.files', App\Http\Controllers\FileController::class)->middleware('auth');

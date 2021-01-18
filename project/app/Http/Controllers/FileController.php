@@ -68,4 +68,16 @@ class FileController extends Controller
 
         return redirect()->route('projects.files.edit',[$project,$file])->withSuccess('successfully saved');
     }
+
+    public function rename(Project $project, File $file){
+        return view('files.rename')->withProject($project)->withFile($file);
+    }
+
+    public function updateName(FileRequest $request,Project $project, File $file){
+
+        $file->name = $request->name;
+        $file->update();
+
+        return redirect()->route('projects.files.edit',[$project,$file])->withSuccess('renamed to '.$file->name);
+    }
 }

@@ -20,13 +20,21 @@
                     @method('PUT')
                     <div class="alert alert-primary" role="heading">
                         <div class="row">
-                            <h1 class="col-9 d-inline-block text-white">Editing {{$file->name}}</h1>
-                            <div class="row d-inline-block">
-                                <div class="d-inline-block justify-content-end" >
-                                    <button type="submit" class="btn btn-secondary mx-2">Save</button>
-                                </div>
-                                <div class="d-inline-block">
-                                    <a class="btn btn-secondary mx-2" href="{{ route('projects_show',$project) }}" >Close</a>
+                            <div class="col">
+                                <h2 class="d-inline-block text-white">Editing {{$file->name}}</h2>
+                            </div>
+                            <div class="col">
+                                <div class="row justify-content-end">
+                                    <div class="d-inline-block">
+                                        <a class="btn btn-secondary mx-2" href="{{ route('projects_files_rename',[$project,$file]) }}">Rename</a>
+                                    </div>
+                                    <div class="d-inline-block ">
+                                        <button type="submit" class="btn btn-secondary mx-2">Save</button>
+                                    </div>
+                                    <div class="d-inline-block">
+                                        <a class="btn btn-secondary mx-2"
+                                           href="{{ route('projects_show',$project) }}">Close</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
