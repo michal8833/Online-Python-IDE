@@ -1,5 +1,7 @@
 <?php
 
+use \Codeception\Util\Locator;
+
 $I = new AcceptanceTester($scenario ?? null);
 $I->wantTo('create and edit file');
 
@@ -82,8 +84,6 @@ $I->seeCurrentUrlEquals('/projects/'.$projectId);
 $fileId = $I->grabFromDatabase('files', 'id', [
    'name' => $fileName
 ]);
-
-// TODO: test edit, rename, save, save as
 
 // delete file
 $I->click('Delete');
@@ -168,6 +168,23 @@ $I->seeInDatabase('files',[
 ]);
 
 $I->seeCurrentUrlEquals('/projects/'.$projectId);
+
+// Edit file test
+
+$fileId = $I->grabFromDatabase('files', 'id', [
+    'project_id' => $projectId,
+    'name' => $fileName,
+    'content' => $fileContent
+]);
+
+$I->click('Edit', Locator::elementAt('//table',1));
+
+$I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/'.$fileId.'/edit');
+
+$I->see('Editing '.$fileName);
+
+$I->see(base64_decode($fileContent),'textarea');
+
 
 
 
