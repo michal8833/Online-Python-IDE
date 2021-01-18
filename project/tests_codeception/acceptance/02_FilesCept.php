@@ -134,9 +134,29 @@ $I->click('Upload');
 $I->see('You have to add at least one file');
 $I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/upload');
 
-$I->attachFile('files','HelloWorld.py');
+$fileName = 'HelloWorld.py';
+
+$file = fopen('tests_codeception/_data/'.$fileName, 'r');
+$fileContent = base64_encode(fread($file,filesize('tests_codeception/_data/'.$fileName)));
+
+$I->attachFile('files',$fileName);
+
+$I->dontSeeInDatabase('files',[
+   'project_id' => $projectId,
+   'name' => $fileName,
+   'content' => $fileContent
+]);
 
 $I->click('Upload');
+
+
+
+
+$I->seeInDatabase('files',[
+    'project_id' => $projectId,
+    'name' => $fileName,
+    'content' => $fileContent
+]);
 
 $I->seeCurrentUrlEquals('/projects/'.$projectId);
 
