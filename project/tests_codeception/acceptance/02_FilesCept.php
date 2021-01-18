@@ -139,6 +139,18 @@ $fileName = 'HelloWorld.py';
 $file = fopen('tests_codeception/_data/'.$fileName, 'r');
 $fileContent = base64_encode(fread($file,filesize('tests_codeception/_data/'.$fileName)));
 
+$I->click('Cancel');
+
+$I->seeCurrentUrlEquals('/projects/'.$projectId);
+
+$I->dontSeeInDatabase('files',[
+    'project_id' => $projectId,
+    'name' => $fileName,
+    'content' => $fileContent
+]);
+
+$I->click('Upload files');
+
 $I->attachFile('files',$fileName);
 
 $I->dontSeeInDatabase('files',[
@@ -148,9 +160,6 @@ $I->dontSeeInDatabase('files',[
 ]);
 
 $I->click('Upload');
-
-
-
 
 $I->seeInDatabase('files',[
     'project_id' => $projectId,
