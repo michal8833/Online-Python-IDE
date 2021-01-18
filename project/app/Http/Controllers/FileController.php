@@ -55,4 +55,8 @@ class FileController extends Controller
 
         return redirect()->route('projects_show',$project);
     }
+
+    public function edit(Project $project, File $file){
+        return view('files.edit')->withProject($project)->withFile($file);
+    }
 }
