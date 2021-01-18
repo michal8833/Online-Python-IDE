@@ -59,4 +59,15 @@ class FileController extends Controller
     public function edit(Project $project, File $file){
         return view('files.edit')->withProject($project)->withFile($file);
     }
+
+    public function save(Request $request, Project $project, File $file){
+
+        $request->validate(['content' => 'string']);
+
+        $file->content = base64_encode($request->get('content'));
+
+        $file->update();
+
+        return redirect()->route('projects.files.edit',[$project,$file]);
+    }
 }

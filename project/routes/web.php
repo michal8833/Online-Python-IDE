@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function() {
     Route::delete('/projects/{project}/files/{file}/delete', [App\Http\Controllers\FileController::class, 'destroy'])->name('projects_files_destroy');
     Route::get('/projects/{project}/files/upload', [App\Http\Controllers\FileController::class, 'upload'])->name('projects_files_upload');
     Route::post('/projects/{project}/files/upload', [App\Http\Controllers\FileController::class, 'uploadFiles'])->name('projects_files_upload');
+    Route::put('/projects/{project}/files/{file}/save', [App\Http\Controllers\FileController::class, 'save'])->name('projects_files_save');
 });
 
 Route::resource('projects.files', App\Http\Controllers\FileController::class)->middleware('auth');
