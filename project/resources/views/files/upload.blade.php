@@ -26,7 +26,7 @@
                                 </div>
                             </div>
                         </div>
-                        <input name='files' type="file" multiple="true" style="height: 0; width: 0; overflow: hidden;"
+                        <input name='files' type="file" multiple style="height: 0; width: 0; overflow: hidden;"
                                id="fileInput" onchange="(function (){
                                    let fileList = $('#fileInput').prop('files');
                                    let msg = '';

@@ -45,6 +45,14 @@ class FileController extends Controller
            'files' => 'required|file'
         ]);
 
+        foreach ($request->file() as $_file){
+            $file = new File();
+            $file->project_id = $project->id;
+            $file->name = $_file->getClientOriginalName();
+            $file->content = base64_encode(file_get_contents($_file));
+            $file->save();
+        }
+
         return redirect()->route('projects_show',$project);
     }
 }
