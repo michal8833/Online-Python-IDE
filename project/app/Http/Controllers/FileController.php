@@ -41,10 +41,10 @@ class FileController extends Controller
     public function uploadFiles(Request $request, Project $project){
 
         $request->validate([
-           'files' => 'required|file'
+           'files' => 'required'
         ]);
 
-        foreach ($request->file() as $_file){
+        foreach ($request->file('files') as $_file){
             $file = new File();
             $file->project_id = $project->id;
             $file->name = $_file->getClientOriginalName();
