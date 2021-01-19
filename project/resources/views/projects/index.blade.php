@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container-fluid mt-3">
-        <div class="container mt-3 pl-3" style="height: 60px; margin-left: 90%;">
+        <div class="row justify-content-end my-3 mx-3 pl-3" >
             <a href="{{ route('projects_create') }}" ><button type="button" class="btn btn-success">New project</button></a>
         </div>
 
