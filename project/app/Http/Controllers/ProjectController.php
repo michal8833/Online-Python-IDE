@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Interpreter\PythonInterpreter;
+use App\Models\File;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -78,7 +79,7 @@ class ProjectController extends Controller
 
     public function run(Project $project) {
 
-        $files = $project->files()->get()->toArray();
+        $files = File::all()->toArray();
         $output = $this->pythonInterpreter->interpret($files);
 
         return view('projects.show')
