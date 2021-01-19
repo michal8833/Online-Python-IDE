@@ -40,7 +40,7 @@
 
         <div class="row" style="margin-left: 27%;margin-top: 2%;">
             <div class="col-md-6">
-                    <a href="{{ route('projects') }}" ><button style="width: 100%;" type="button" class="btn btn-secondary">Cancel</button></a>
+                    <a href="{{ route('projects_index') }}" ><button style="width: 100%;" type="button" class="btn btn-secondary">Cancel</button></a>
             </div>
         </div>
 

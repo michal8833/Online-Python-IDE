@@ -18,7 +18,7 @@ class PythonInterpreter {
             --name ".env('DOCKER_CONTAINER_NAME')." ".env('DOCKER_CONTAINER_NAME')." 2>&1";
 
         foreach ($files as $file) {
-            $dockerRun .= ' '.$file->name;
+            $dockerRun .= ' '.$file['name'];
         }
 
         return shell_exec($dockerRun);
@@ -31,7 +31,7 @@ class PythonInterpreter {
         }
         shell_exec("rm -rf $srcPath/*");
         foreach ($files as $file) {
-            file_put_contents($srcPath.'/'.$file->name, $file->content);
+            file_put_contents($srcPath.'/'.$file['name'], base64_decode($file['content']));
         }
     }
 }

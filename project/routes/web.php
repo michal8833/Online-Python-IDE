@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\ProjectController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,19 +17,31 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth')->group(function() {
-    Route::get('/projects', [App\Http\Controllers\ProjectController::class, 'index'])->name('projects');
-    Route::get('/projects/create', [App\Http\Controllers\ProjectController::class, 'create'])->name('projects_create');
-    Route::post('/projects/create', [App\Http\Controllers\ProjectController::class, 'store'])->name('projects_store');
-    Route::get('/projects/{project}', [App\Http\Controllers\ProjectController::class, 'show'])->name('projects_show');
-    Route::get('/projects/{project}/edit', [App\Http\Controllers\ProjectController::class, 'edit'])->name('projects_edit');
-    Route::put('/projects/{project}/edit', [App\Http\Controllers\ProjectController::class, 'update'])->name('projects_update');
-    Route::get('/projects/{project}/delete', [App\Http\Controllers\ProjectController::class, 'delete'])->name('projects_delete');
-    Route::delete('/projects/{project}/delete', [App\Http\Controllers\ProjectController::class, 'destroy'])->name('projects_destroy');
-    Route::get('/projects/{project}/run', [App\Http\Controllers\ProjectController::class, 'run'])->name('projects_run');
-    // file controller methods:
 
-    Route::get('/projects/{project}/files/{file}/delete', [App\Http\Controllers\FileController::class, 'delete'])->name('projects_files_delete');
-    Route::delete('/projects/{project}/files/{file}/delete', [App\Http\Controllers\FileController::class, 'destroy'])->name('projects_files_destroy');
+    Route::name('projects_')->prefix('projects')->group(function (){
+        Route::get('/', [ProjectController::class, 'index'])->name('index');
+        Route::get('/create', [ProjectController::class, 'create'])->name('create');
+        Route::post('/create', [ProjectController::class, 'store'])->name('store');
+        Route::get('/{project}', [ProjectController::class, 'show'])->name('show');
+        Route::get('/{project}/edit', [ProjectController::class, 'edit'])->name('edit');
+        Route::put('/{project}/edit', [ProjectController::class, 'update'])->name('update');
+        Route::get('/{project}/delete', [ProjectController::class, 'delete'])->name('delete');
+        Route::delete('/{project}/delete', [ProjectController::class, 'destroy'])->name('destroy');
+        Route::get('/{project}/run', [ProjectController::class, 'run'])->name('run');
+        // file controller methods:
+        Route::name('files_')->prefix('{project}/files')->group(function (){
+            Route::get('/{file}/delete', [FileController::class, 'delete'])->name('delete');
+            Route::delete('/{file}/delete', [FileController::class, 'destroy'])->name('destroy');
+            Route::get('/upload', [FileController::class, 'upload'])->name('upload');
+            Route::post('/upload', [FileController::class, 'uploadFiles'])->name('upload');
+            Route::put('/{file}/save', [FileController::class, 'save'])->name('save');
+            Route::get('/{file}/rename', [FileController::class, 'rename'])->name('rename');
+            Route::put('/{file}/rename', [FileController::class, 'updateName'])->name('updateName');
+            Route::put('/{file}/saveAs', [FileController::class, 'saveAs'])->name('saveAs');
+            Route::get('/{file}/saveAs', [FileController::class, 'saveAs'])->name('saveAs');
+            Route::put('/{file}/storeAs', [FileController::class, 'storeAs'])->name('storeAs');
+        });
+    });
 });
 
 Route::resource('projects.files', App\Http\Controllers\FileController::class)->middleware('auth');

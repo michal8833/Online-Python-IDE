@@ -134,6 +134,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'files' => [
+            'required' => 'You have to add at least one file'
+            ],
     ],
 
     /*
