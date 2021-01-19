@@ -36,6 +36,9 @@ Route::middleware('auth')->group(function() {
             Route::put('/{file}/save', [FileController::class, 'save'])->name('save');
             Route::get('/{file}/rename', [FileController::class, 'rename'])->name('rename');
             Route::put('/{file}/rename', [FileController::class, 'updateName'])->name('updateName');
+            Route::put('/{file}/saveAs', [FileController::class, 'saveAs'])->name('saveAs');
+            Route::get('/{file}/saveAs', [FileController::class, 'saveAs'])->name('saveAs');
+            Route::put('/{file}/storeAs', [FileController::class, 'storeAs'])->name('storeAs');
         });
     });
 });

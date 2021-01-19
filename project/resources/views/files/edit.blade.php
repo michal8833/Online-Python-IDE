@@ -15,7 +15,7 @@
                     </div>
                 @endif
 
-                <form class="w-100" method="post" action="{{ route('projects_files_save', [$project,$file]) }}">
+                <form id="form" class="w-100" method="post" action="{{ route('projects_files_save', [$project,$file]) }}">
                     @csrf
                     @method('PUT')
                     <div class="alert alert-primary" role="heading">
@@ -32,6 +32,12 @@
                                         <button type="submit" class="btn btn-secondary mx-2">Save</button>
                                     </div>
                                     <div class="d-inline-block">
+                                            <button id="saveAsBtn" class="btn btn-secondary mx-2"
+                                               type="submit" onclick="(function () {
+                                                 $('#form').attr('action', '{{ route('projects_files_saveAs',[$project,$file]) }}')
+                                               })()">Save as</button>
+                                    </div>
+                                    <div class="d-inline-block">
                                         <a class="btn btn-secondary mx-2"
                                            href="{{ route('projects_show',$project) }}">Close</a>
                                     </div>
@@ -40,7 +46,7 @@
                         </div>
                     </div>
 
-                    <textarea spellcheck="false" class="form-control" rows="15" name="content">{{ base64_decode($file->content) }}</textarea>
+                    <textarea id="codeEditor" spellcheck="false" class="form-control" rows="15" name="content">{{ base64_decode($file->content) }}</textarea>
 
 
                 </form>
