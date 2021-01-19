@@ -86,18 +86,18 @@ class FileController extends Controller
         return redirect()->route('projects.files.edit',[$project,$file])->withSuccess('Renamed successfully');
     }
 
-    public function saveAs(Request $request, Project $project, File $file){
+    public function saveAs(Project $project, File $file){
 
         return view('files.save-as')->withProject($project)->withFile($file);
     }
 
     public function storeAs(FileRequest $request, Project $project, File $file){
 
-        foreach ($project->files as $_file){
-            if($_file->name == $request->name){
-                return redirect()->route('projects_files_saveAs',[$project, $file])
-                    ->withErrors([$_file->name.' file exist.']);
-            }
+        $files = $project->files()->where('name','=',$request->name)->first();
+
+        if(!empty($files)){
+            return redirect()->route('projects_files_saveAs',[$project, $file])
+                    ->withErrors([$request->name.' file exist.']);
         }
 
         $newFile = new File();
