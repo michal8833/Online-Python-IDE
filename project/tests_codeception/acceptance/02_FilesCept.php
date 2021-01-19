@@ -151,7 +151,7 @@ $I->dontSeeInDatabase('files',[
 
 $I->click('Upload files');
 
-$I->attachFile('files',$fileName);
+$I->attachFile('files[]',$fileName);
 
 $I->dontSeeInDatabase('files',[
    'project_id' => $projectId,

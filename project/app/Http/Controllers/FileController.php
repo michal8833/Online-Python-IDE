@@ -41,10 +41,10 @@ class FileController extends Controller
     public function uploadFiles(Request $request, Project $project){
 
         $request->validate([
-           'files' => 'required|file'
+           'files' => 'required'
         ]);
 
-        foreach ($request->file() as $_file){
+        foreach ($request->file('files') as $_file){
             $file = new File();
             $file->project_id = $project->id;
             $file->name = $_file->getClientOriginalName();
@@ -61,8 +61,14 @@ class FileController extends Controller
 
     public function save(Request $request, Project $project, File $file){
 
-        $file->content = base64_encode($request->get('content'));
+        if($request->action == 'saveAs'){
+            // save as
+            session()->put('fileContent',$request->get('content'));
+            return redirect()->route('projects_files_saveAs',[$project,$file]);
+        }
 
+        // save
+        $file->content = base64_encode($request->get('content'));
         $file->update();
 
         return redirect()->route('projects.files.edit',[$project,$file])->withSuccess('successfully saved');
@@ -80,20 +86,18 @@ class FileController extends Controller
         return redirect()->route('projects.files.edit',[$project,$file])->withSuccess('Renamed successfully');
     }
 
-    public function saveAs(Request $request, Project $project, File $file){
-        if($request->has('content'))
-            session()->put('fileContent',$request->get('content'));
+    public function saveAs(Project $project, File $file){
 
         return view('files.save-as')->withProject($project)->withFile($file);
     }
 
     public function storeAs(FileRequest $request, Project $project, File $file){
 
-        foreach ($project->files as $_file){
-            if($_file->name == $request->name){
-                return redirect()->route('projects_files_saveAs',[$project, $file])
-                    ->withErrors([$_file->name.' file exist.']);
-            }
+        $files = $project->files()->where('name','=',$request->name)->first();
+
+        if(!empty($files)){
+            return redirect()->route('projects_files_saveAs',[$project, $file])
+                    ->withErrors([$request->name.' file exist.']);
         }
 
         $newFile = new File();

@@ -29,13 +29,10 @@
                                         <a class="btn btn-secondary mx-2" href="{{ route('projects_files_rename',[$project,$file]) }}">Rename</a>
                                     </div>
                                     <div class="d-inline-block ">
-                                        <button type="submit" class="btn btn-secondary mx-2">Save</button>
+                                        <button name="action" value="save" type="submit" class="btn btn-secondary mx-2">Save</button>
                                     </div>
                                     <div class="d-inline-block">
-                                            <button id="saveAsBtn" class="btn btn-secondary mx-2"
-                                               type="submit" onclick="(function () {
-                                                 $('#form').attr('action', '{{ route('projects_files_saveAs',[$project,$file]) }}')
-                                               })()">Save as</button>
+                                        <button name="action" value="saveAs" type="submit" class="btn btn-secondary mx-2">Save as</button>
                                     </div>
                                     <div class="d-inline-block">
                                         <a class="btn btn-secondary mx-2"
