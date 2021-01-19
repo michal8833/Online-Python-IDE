@@ -224,7 +224,7 @@ $I->dontSeeInDatabase('files',[
     'content' => $encodedNewFileContent
 ]);
 
-$I->click('Save');
+$I->click('Save','button');
 
 $I->dontSeeInDatabase('files',[
     'project_id' => $projectId,
@@ -295,3 +295,68 @@ $I->dontSeeInDatabase('files',[
 $I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/'.$fileId.'/edit');
 
 $I->see($newFileName.' Renamed successfully');
+
+// Save as
+$saveAsFile = 'main.py';
+
+$I->click('Save as');
+$I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/'.$fileId.'/saveAs');
+
+$I->seeInField('name',$newFileName);
+
+$I->click('Save as');
+
+$I->seeNumRecords(1,'files',[
+    'project_id' => $projectId,
+    'name' => $newFileName,
+    'content' => $encodedNewFileContent
+]);
+
+$I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/'.$fileId.'/saveAs');
+$I->see($newFileName.' file exist.');
+
+$I->fillField('name', '');
+$I->click('Save as');
+
+$I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/'.$fileId.'/saveAs');
+$I->see('The name field is required');
+
+$I->fillField('name',$saveAsFile);
+
+$I->click('Cancel');
+$I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/'.$fileId.'/edit');
+
+$I->seeInDatabase('files',[
+    'project_id' => $projectId,
+    'name' => $newFileName,
+    'content' => $encodedNewFileContent
+]);
+
+$I->dontSeeInDatabase('files',[
+    'project_id' => $projectId,
+    'name' => $saveAsFile,
+    'content' => $encodedNewFileContent
+]);
+
+$I->click('Save as');
+
+$I->fillField('name', $saveAsFile);
+
+$I->click('Save as');
+
+$I->seeInDatabase('files',[
+    'project_id' => $projectId,
+    'name' => $newFileName,
+    'content' => $encodedNewFileContent
+]);
+
+$I->seeInDatabase('files',[
+    'project_id' => $projectId,
+    'name' => $saveAsFile,
+    'content' => $encodedNewFileContent
+]);
+
+$I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/'.$fileId.'/edit');
+
+$I->see($newFileName.' Saved successfully');
+
