@@ -61,8 +61,14 @@ class FileController extends Controller
 
     public function save(Request $request, Project $project, File $file){
 
-        $file->content = base64_encode($request->get('content'));
+        if($request->action == 'saveAs'){
+            // save as
+            session()->put('fileContent',$request->get('content'));
+            return redirect()->route('projects_files_saveAs',[$project,$file]);
+        }
 
+        // save
+        $file->content = base64_encode($request->get('content'));
         $file->update();
 
         return redirect()->route('projects.files.edit',[$project,$file])->withSuccess('successfully saved');
@@ -81,8 +87,6 @@ class FileController extends Controller
     }
 
     public function saveAs(Request $request, Project $project, File $file){
-        if($request->has('content'))
-            session()->put('fileContent',$request->get('content'));
 
         return view('files.save-as')->withProject($project)->withFile($file);
     }
