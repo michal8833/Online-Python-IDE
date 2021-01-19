@@ -224,7 +224,7 @@ $I->dontSeeInDatabase('files',[
     'content' => $encodedNewFileContent
 ]);
 
-$I->click('Save','button');
+$I->click('Save');
 
 $I->dontSeeInDatabase('files',[
     'project_id' => $projectId,
@@ -356,7 +356,13 @@ $I->seeInDatabase('files',[
     'content' => $encodedNewFileContent
 ]);
 
-$I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/'.$fileId.'/edit');
+$newFileId = $I->grabFromDatabase('files','id',[
+    'project_id' => $projectId,
+    'name' => $saveAsFile,
+    'content' => $encodedNewFileContent
+]);
 
-$I->see($newFileName.' Saved successfully');
+$I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/'.$newFileId.'/edit');
+
+$I->see($saveAsFile.' Saved successfully');
 
