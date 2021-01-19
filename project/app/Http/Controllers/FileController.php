@@ -24,7 +24,6 @@ class FileController extends Controller
         return redirect()->route('projects_show',$project);
     }
     public function delete(Project $project, File $file) {
-
         return view('files.delete')->withProject($project)->withFile($file);
     }
 
@@ -78,6 +77,6 @@ class FileController extends Controller
         $file->name = $request->name;
         $file->update();
 
-        return redirect()->route('projects.files.edit',[$project,$file])->withSuccess('renamed to '.$file->name);
+        return redirect()->route('projects.files.edit',[$project,$file])->withSuccess('Renamed successfully');
     }
 }

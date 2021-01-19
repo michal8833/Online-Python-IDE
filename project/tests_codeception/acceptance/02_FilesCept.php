@@ -294,3 +294,4 @@ $I->dontSeeInDatabase('files',[
 
 $I->seeCurrentUrlEquals('/projects/'.$projectId.'/files/'.$fileId.'/edit');
 
+$I->see($newFileName.' Renamed successfully');
