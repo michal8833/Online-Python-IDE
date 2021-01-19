@@ -38,7 +38,7 @@ class ProjectController extends Controller
         $project->user_id = Auth::id();
         $project->save();
 
-        return redirect()->route('projects');
+        return redirect()->route('projects_index');
     }
 
     public function show(Project $project) {

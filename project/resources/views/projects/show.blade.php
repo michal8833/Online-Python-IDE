@@ -11,7 +11,7 @@
                         <a href="{{ route('projects_edit', $project) }}" ><button type="button" class="btn btn-primary">Edit</button></a>
                     </div>
                     <div class="d-inline-block" style="height: 60px; margin-left: 5px;">
-                        <a href="{{ route('projects') }}" ><button type="button" class="btn btn-default">Back to projects</button></a>
+                        <a href="{{ route('projects_index') }}" ><button type="button" class="btn btn-default">Back to projects</button></a>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@
         <div class="card mt-3">
             <div class="card-body">
                 <div style="height: 60px;">
-                    <a href="{{ route('projects') }}" >
+                    <a href="{{ route('projects_index') }}" >
                         <button type="button" class="btn btn-primary">
                             <h2 style="color: white;">Run Project</h2>
                         </button>
