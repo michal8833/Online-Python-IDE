@@ -27,14 +27,12 @@ $I->fillField('description', $projectDescription);
 
 $I->click('Create');
 
-$I->seeCurrentUrlEquals('/projects');
-
 $projectId = $I->grabFromDatabase('projects','id', [
     'name' => $projectName,
     'description' => $projectDescription
 ]);
 
-$I->amOnPage('/projects/'.$projectId);
+$I->seeCurrentUrlEquals('/projects'.$projectId);
 
 // test create files
 
