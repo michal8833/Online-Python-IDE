@@ -87,37 +87,23 @@
                 </div>
             </div>
         </div>
-        <form method="post" action="{{ route('projects_run', $project) }}">
-            @csrf
-            <div class="card mt-3">
-                <div class="card-body row">
-                    <div class="col-2" style="height: 60px;">
-                        <button type="submit" class="btn btn-primary" @if($project->files->isEmpty()) disabled @endif>
-                            <h2 style="color: white;">Run Project</h2>
-                        </button>
-                    </div>
-                   <div class="col">
-                      <input type="text" placeholder="Input arguments..." class="form-control" name="args" value=""/>
-                   </div>
-                </div>
-            </div>
-            <textarea placeholder="Standard input..." spellcheck="false" class="form-control" rows="1" name="stdin"></textarea>
-        </form>
+        <x-project-run-form
+            action="{{ route('projects_run', $project) }}"
+            activeCondition="{{ $project->files->isEmpty() }}"
+        ></x-project-run-form>
         @if(!empty($err))
-            <div class="card mt-3 bg-default">
-                <div class="card-body">
-                    <p class="card-text text-red text-lg">Errors:</p>
-                    <div class="card-text text-red ql-font-monospace">{{ $err ?? '' }}</div>
-                </div>
-            </div>
+            <x-code-card
+                label="Errors:"
+                content="{{ $err }}"
+                color="red"
+            ></x-code-card>
         @endif
         @if(!empty($output))
-        <div class="card mt-3 bg-default">
-            <div class="card-body">
-                <p class="card-text text-white text-lg">{{ 'Process exited with code: '.($code ?? '<missing exit code>')}}, output:</p>
-                <div class="card-text text-white text-lg ql-font-monospace">{{ $output ?? '' }}</div>
-            </div>
-        </div>
+            <x-code-card
+                label="{{ 'Process exited with code: '.($code ?? '<missing exit code>')}}"
+                content="{{ $output }}"
+                color="white"
+            ></x-code-card>
         @endif
     @include('layouts.footers.auth')
     </div>
