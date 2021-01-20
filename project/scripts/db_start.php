@@ -6,7 +6,6 @@ $env = get_env();
 
 $databaseRunning = shell_exec("if docker ps | grep -q mysql; then printf 'true'; else printf 'false'; fi");
 if ($databaseRunning === 'false') {
-    echo $databaseRunning;
     print shell_exec("docker run \
 --name={$env['DB_CONNECTION']} \
 --net=host \
