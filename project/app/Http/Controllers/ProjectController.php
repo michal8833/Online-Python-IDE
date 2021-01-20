@@ -79,6 +79,8 @@ class ProjectController extends Controller
     public function run(Request $request, Project $project) {
         $files = $project['files']->toArray();
         $result = $this->pythonInterpreter->interpret($files, $request['stdin'] ?? '', $request['args'] ?? '');
+        session()->put('stdin', $request['stdin']);
+        session()->put('args', $request['args']);
 
         return view('projects.show')
             ->with('project', $project)
