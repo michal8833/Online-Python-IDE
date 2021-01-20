@@ -27,7 +27,8 @@ Route::middleware('auth')->group(function() {
         Route::put('/{project}/edit', [ProjectController::class, 'update'])->name('update');
         Route::get('/{project}/delete', [ProjectController::class, 'delete'])->name('delete');
         Route::delete('/{project}/delete', [ProjectController::class, 'destroy'])->name('destroy');
-        Route::get('/{project}/run', [ProjectController::class, 'run'])->name('run');
+        Route::post('/{project}/run', [ProjectController::class, 'run'])->name('run');
+
         // file controller methods:
         Route::name('files_')->prefix('{project}/files')->group(function (){
             Route::get('/{file}/delete', [FileController::class, 'delete'])->name('delete');

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Interpreter\PythonInterpreter;
-use App\Models\File;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -77,13 +76,14 @@ class ProjectController extends Controller
         return redirect(route('projects_index'));
     }
 
-    public function run(Project $project) {
-
-        $files = File::all()->toArray();
-        $output = $this->pythonInterpreter->interpret($files);
+    public function run(Request $request, Project $project) {
+        $files = $project['files']->toArray();
+        $result = $this->pythonInterpreter->interpret($files, $request['stdin'] ?? '', $request['args'] ?? '');
 
         return view('projects.show')
-            ->withProject($project)
-            ->withOutput($output);
+            ->with('project', $project)
+            ->with('output', $result->getOutput())
+            ->with('err', $result->getErrors())
+            ->with('code', $result->getCode());
     }
 }
