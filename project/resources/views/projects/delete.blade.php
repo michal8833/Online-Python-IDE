@@ -13,7 +13,7 @@
                         @method('DELETE')
                         <button class="btn btn-primary">Yes</button>
                     </form>
-                    <form method="get" action="{{route('projects')}}" class="d-inline-block">
+                    <form method="get" action="{{route('projects_index')}}" class="d-inline-block">
                         <button class="btn btn-primary">No</button>
                     </form>
                 </div>

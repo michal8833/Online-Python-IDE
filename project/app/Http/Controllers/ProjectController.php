@@ -39,7 +39,7 @@ class ProjectController extends Controller
         $project->user_id = Auth::id();
         $project->save();
 
-        return redirect()->route('projects_index');
+        return redirect()->route('projects_show', $project);
     }
 
     public function show(Project $project) {
@@ -74,7 +74,7 @@ class ProjectController extends Controller
 
         $project->delete();
 
-        return redirect(route('projects'));
+        return redirect(route('projects_index'));
     }
 
     public function run(Project $project) {
