@@ -32,7 +32,7 @@ $projectId = $I->grabFromDatabase('projects','id', [
     'description' => $projectDescription
 ]);
 
-$I->seeCurrentUrlEquals('/projects'.$projectId);
+$I->seeCurrentUrlEquals('/projects/'.$projectId);
 
 // test create files
 
