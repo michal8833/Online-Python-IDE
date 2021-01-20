@@ -47,7 +47,6 @@ $I->fillField('description', $projectDescription);
 $I->dontSeeInDatabase('projects', [
     'name' => $projectName,
     'description' => $projectDescription,
-    'user_id' => Auth::id()
 ]);
 
 $I->click('Create');
@@ -55,7 +54,6 @@ $I->click('Create');
 $I->seeInDatabase('projects', [
     'name' => $projectName,
     'description' => $projectDescription,
-    'user_id' => Auth::id()
 ]);
 
 // see show view
@@ -63,23 +61,12 @@ $I->seeInDatabase('projects', [
 $id = $I->grabFromDatabase('projects', 'id', [
     'name' => $projectName,
     'description' => $projectDescription,
-    'user_id' => Auth::id()
 ]);
 
 $I->seeCurrentUrlEquals('/projects/' . $id);
 
 $I->see($projectName);
 $I->see($projectDescription);
-
-/*$I->amOnPage('/books');
-
-$I->see("$bookIsbn", 'tr > td');
-$I->see("$bookTitle", 'tr > td');
-$I->dontSee("$bookDescription", 'tr > td');
-
-$I->click('Details');
-
-$I->seeCurrentUrlEquals('/books/' . $id);*/
 
 // edit the project
 
@@ -109,14 +96,40 @@ $I->see($newDescription);
 $I->dontSeeInDatabase('projects', [
     'name' => $projectName,
     'description' => $projectDescription,
-    'user_id' => Auth::id()
 ]);
 
-$I->seeInDatabase('books', [
+$I->seeInDatabase('projects', [
     'name' => $projectName,
     'description' => $newDescription,
-    'user_id' => Auth::id()
 ]);
 
+// see project in index view
 
+$I->amOnPage('/projects');
+
+$I->see("$projectName", 'tr > th');
+$I->see("$newDescription", 'tr > td');
+
+$I->click('View');
+
+$I->seeCurrentUrlEquals('/projects/' . $id);
+
+// delete the project
+
+$I->amOnPage('/projects');
+
+$I->click('Delete');
+
+$I->seeCurrentUrlEquals('/projects/' . $id . '/delete');
+
+$I->see("Are you sure you want to delete project $projectName? All included files will be deleted too.", 'p');
+
+$I->click('Yes');
+
+$I->seeCurrentUrlEquals('/projects');
+
+$I->dontSeeInDatabase('projects', [
+    'name' => $projectName,
+    'description' => $newDescription,
+]);
 
