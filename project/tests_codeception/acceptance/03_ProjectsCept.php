@@ -112,6 +112,20 @@ $I->click('View');
 
 $I->seeCurrentUrlEquals('/projects/' . $id);
 
+// add file to project to check if it is deleted when project is deleted
+
+$fileName = "Example file";
+
+$I->haveInDatabase('files',[
+    'name' => $fileName,
+    'project_id' => $id
+]);
+
+$I->seeInDatabase('files',[
+    'name' => $fileName,
+    'project_id' => $id
+]);
+
 // delete the project
 
 $I->amOnPage('/projects');
@@ -129,5 +143,10 @@ $I->seeCurrentUrlEquals('/projects');
 $I->dontSeeInDatabase('projects', [
     'name' => $projectName,
     'description' => $newDescription,
+]);
+
+$I->dontSeeInDatabase('files',[
+    'name' => $fileName,
+    'project_id' => $id
 ]);
 
