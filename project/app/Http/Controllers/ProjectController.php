@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Interpreter\PythonInterpreter;
+use App\Models\File;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,7 +39,7 @@ class ProjectController extends Controller
         $project->user_id = Auth::id();
         $project->save();
 
-        return redirect()->route('projects_show', $project);
+        return redirect()->route('projects_index');
     }
 
     public function show(Project $project) {
@@ -76,8 +77,13 @@ class ProjectController extends Controller
         return redirect(route('projects'));
     }
 
-    public function run(array $files) {
+    public function run(Project $project) {
+
+        $files = File::all()->toArray();
         $output = $this->pythonInterpreter->interpret($files);
-        # TODO: display output on a view here
+
+        return view('projects.show')
+            ->withProject($project)
+            ->withOutput($output);
     }
 }
