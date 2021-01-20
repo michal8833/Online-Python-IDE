@@ -74,7 +74,7 @@
                                         </td>
 
                                         <td class="text-right">
-                                            <a href="{{ route('projects.files.edit',[$project,$file]) }}"><button type="button" class="btn btn-primary">Edit</button></a>
+                                            <a href="{{ route('projects.files.edit',[$project,$file]) }}"><button name="editFile" type="button" class="btn btn-primary">Edit</button></a>
                                             <a href="{{ route('projects_files_delete', array($project, $file)) }}"><button type="button" class="btn btn-danger">Delete</button></a>
                                         </td>
                                     </tr>

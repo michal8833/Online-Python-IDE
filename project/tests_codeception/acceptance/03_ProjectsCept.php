@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
-
 $I = new AcceptanceTester($scenario ?? null);
 
 $I->wantTo('have projects page');
