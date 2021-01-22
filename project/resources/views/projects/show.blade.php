@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('navTitle',$project->name)
+
 @section('content')
 
     <div class="container-fluid mt-3">

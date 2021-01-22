@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('navTitle',$project->name)
+@section('navTitleRoute',route('projects_show',$project))
+
 @section('content')
     <div class="container-fluid mt-3 ">
         <div class="mt-6">
