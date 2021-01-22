@@ -2,6 +2,7 @@
 
 @section('navTitle',$project->name)
 @section('navTitleRoute',route('projects_show',$project))
+@section('file')
 
 @section('content')
 
