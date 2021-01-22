@@ -48,7 +48,7 @@ Route::resource('projects.files', App\Http\Controllers\FileController::class)->m
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('guest');
 
 require __DIR__.'/auth.php';
 
