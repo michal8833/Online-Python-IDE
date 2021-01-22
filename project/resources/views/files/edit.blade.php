@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('navTitle',$project->name)
+@section('navTitleRoute',route('projects_show',$project))
+
+@include('files.files-navbar')
+
 @section('content')
 
     <div class="container-fluid mt-3">
@@ -52,5 +57,21 @@
         </div>
     </div>
 
+    <script>
+
+        document.getElementById('codeEditor').addEventListener('keydown', function (event) {
+            if (event.key === 'Tab') {
+                event.preventDefault();
+                let start = this.selectionStart;
+                let end = this.selectionEnd;
+
+                this.value = this.value.substring(0, start) +
+                    "\t" + this.value.substring(end);
+
+                this.selectionStart =
+                    this.selectionEnd = start + 1;
+            }
+        })
+    </script>
 
 @endsection

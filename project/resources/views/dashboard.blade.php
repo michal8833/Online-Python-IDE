@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('navTitle','Dashboard')
+
 @section('content')
 
     <div class="container-fluid mt-3">
@@ -10,7 +12,7 @@
         </div>
 
 
-        @include('layouts.footers.auth')
+
     </div>
 
 @endsection

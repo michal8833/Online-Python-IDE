@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('navTitle',$project->name)
+
 @section('content')
 
     <div class="container-fluid mt-3">
@@ -8,11 +10,15 @@
                 <h1 class="col d-inline-block">{{$project->name}}</h1>
                 <div class="col d-inline-block">
                     <div class="row justify-content-end">
-                        <div class="d-inline-block mx-2" >
-                            <a href="{{ route('projects_edit', $project) }}" ><button type="button" class="btn btn-primary">Edit</button></a>
+                        <div class="d-inline-block mx-2">
+                            <a href="{{ route('projects_edit', $project) }}">
+                                <button type="button" class="btn btn-primary">Edit</button>
+                            </a>
                         </div>
                         <div class="d-inline-block mx-2">
-                            <a href="{{ route('projects_index') }}" ><button type="button" class="btn btn-default">Back to projects</button></a>
+                            <a href="{{ route('projects_index') }}">
+                                <button type="button" class="btn btn-default">Back to projects</button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -30,10 +36,12 @@
                     <div class="col">
                         <h2 class="card-title d-inline-block">Files</h2>
                     </div>
-                    <div class="col justify-content-end " >
+                    <div class="col justify-content-end ">
                         <div class="row justify-content-end">
-                            <a class="btn btn-success mx-2" href="{{ route('projects.files.create',$project) }}" >New File</a>
-                            <a class="btn btn-success mx-2" href="{{ route('projects_files_upload',$project) }}" >Upload files</a>
+                            <a class="btn btn-success mx-2" href="{{ route('projects.files.create',$project) }}">New
+                                File</a>
+                            <a class="btn btn-success mx-2" href="{{ route('projects_files_upload',$project) }}">Upload
+                                files</a>
                         </div>
                     </div>
                 </div>
@@ -54,7 +62,7 @@
                                 <tbody>
                                 @foreach($project->files as $file)
                                     <tr>
-                                        <th scope="row" >
+                                        <th scope="row">
                                             <div class="media align-items-center">
                                                 <a href="#" class="avatar rounded-circle mr-3">
                                                     <i class="ni ni-app"></i>
@@ -74,8 +82,13 @@
                                         </td>
 
                                         <td class="text-right">
-                                            <a href="{{ route('projects.files.edit',[$project,$file]) }}"><button name="editFile" type="button" class="btn btn-primary">Edit</button></a>
-                                            <a href="{{ route('projects_files_delete', array($project, $file)) }}"><button type="button" class="btn btn-danger">Delete</button></a>
+                                            <a href="{{ route('projects.files.edit',[$project,$file]) }}">
+                                                <button name="editFile" type="button" class="btn btn-primary">Edit
+                                                </button>
+                                            </a>
+                                            <a href="{{ route('projects_files_delete', array($project, $file)) }}">
+                                                <button type="button" class="btn btn-danger">Delete</button>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -87,29 +100,29 @@
                 </div>
             </div>
         </div>
-        <x-project-run-form
-            action="{{ route('projects_run', $project) }}"
-            activeCondition="{{ $project->files->isEmpty() }}"
-        ></x-project-run-form>
-        @if(!empty($err))
-            <x-code-card
-                label="Errors:"
-                content="{{ $err }}"
-                color="red"
-            ></x-code-card>
+        <div class="py-6">
+            <x-project-run-form
+                action="{{ route('projects_run', $project) }}"
+                activeCondition="{{ $project->files->isEmpty() }}"
+            ></x-project-run-form>
+            @if(!empty($err))
+                <x-code-card
+                    label="Errors:"
+                    content="{{ $err }}"
+                    color="red"
+                ></x-code-card>
+            @endif
+            @if(!empty($output))
+
+                <x-code-card
+                    label="{{ 'Process exited with code: '.($code ?? '<missing exit code>')}}"
+                    content="{{ $output }}"
+                    color="white"
+                ></x-code-card>
+        </div>
         @endif
-        @if(!empty($output))
-            <x-code-card
-                label="{{ 'Process exited with code: '.($code ?? '<missing exit code>')}}"
-                content="{{ $output }}"
-                color="white"
-            ></x-code-card>
-        @endif
-    @include('layouts.footers.auth')
+
     </div>
 @endsection
 
-@push('js')
-    <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
-    <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
-@endpush
+
