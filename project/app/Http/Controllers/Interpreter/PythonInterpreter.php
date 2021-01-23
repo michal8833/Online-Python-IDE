@@ -57,7 +57,7 @@ class PythonInterpreter {
             $dockerRun .= ' '.$name;
         }
 
-        return $dockerRun.' '.$args;
+        return $dockerRun.' -B '.$args;
     }
 
     private function deserializeFiles(array $files) {
