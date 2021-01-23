@@ -14,7 +14,7 @@ class PythonInterpreter {
         $dockerRun = $this->buildDockerRunCommand($filenames, $args);
 
         $descriptors = [
-            0 => ['pipe', 'rw'],
+            0 => ['pipe', 'r'],
             1 => ['pipe', 'w'],
             2 => ['pipe', 'w']
         ];
@@ -27,6 +27,7 @@ class PythonInterpreter {
             if (false === fwrite($pipes[0], $input)) {
                 return InterpreterResponse::fail("Error writing input to stdin!!!");
             }
+            fclose($pipes[0]);
         }
         $stdout = '';
         $stderr = '';
@@ -49,6 +50,7 @@ class PythonInterpreter {
         $dockerRun = "docker run \
             --mount type=bind,source=$srcPath,target=/usr/src/app \
             --rm \
+            -i \
             --name ".env('DOCKER_CONTAINER_NAME')." ".env('DOCKER_CONTAINER_NAME');
 
         foreach ($filenames as $name) {
