@@ -82,10 +82,9 @@ class ProjectController extends Controller
         session()->put('stdin', $request['stdin']);
         session()->put('args', $request['args']);
 
-        return view('projects.show')
-            ->with('project', $project)
-            ->with('output', $result->getOutput())
-            ->with('err', $result->getErrors())
-            ->with('code', $result->getCode());
+        return redirect()->route('projects_show', $project)
+            ->withOutput( $result->getOutput())
+            ->withErr($result->getErrors())
+            ->withCode($result->getCode());
     }
 }

@@ -105,18 +105,18 @@
                 action="{{ route('projects_run', $project) }}"
                 activeCondition="{{ $project->files->isEmpty() }}"
             ></x-project-run-form>
-            @if(!empty($err))
+            @if(session()->has('err'))
                 <x-code-card
                     label="Errors:"
-                    content="{{ $err }}"
+                    content="{{ session()->get('err') }}"
                     color="red"
                 ></x-code-card>
             @endif
-            @if(!empty($output))
+            @if(session()->has('output'))
 
                 <x-code-card
                     label="{{ 'Process exited with code: '.($code ?? '<missing exit code>')}}"
-                    content="{{ $output }}"
+                    content="{{ session()->get('output') }}"
                     color="white"
                 ></x-code-card>
         </div>
