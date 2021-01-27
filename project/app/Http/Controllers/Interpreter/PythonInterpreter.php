@@ -53,6 +53,14 @@ class PythonInterpreter {
             -i \
             --name ".env('DOCKER_CONTAINER_NAME')." ".env('DOCKER_CONTAINER_NAME').' -B';
 
+        $mainExists = array_search("main.py", $filenames);
+        if ($mainExists !== false) {
+            $filenames = array_filter($filenames, function ($name) {
+                return $name !== "main.py";
+            });
+        }
+        array_unshift( $filenames, "main.py");
+
         foreach ($filenames as $name) {
             $dockerRun .= ' '.$name;
         }
