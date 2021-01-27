@@ -51,13 +51,13 @@ class PythonInterpreter {
             --mount type=bind,source=$srcPath,target=/usr/src/app \
             --rm \
             -i \
-            --name ".env('DOCKER_CONTAINER_NAME')." ".env('DOCKER_CONTAINER_NAME');
+            --name ".env('DOCKER_CONTAINER_NAME')." ".env('DOCKER_CONTAINER_NAME').' -B';
 
         foreach ($filenames as $name) {
             $dockerRun .= ' '.$name;
         }
 
-        return $dockerRun.' -B '.$args;
+        return $dockerRun.$args;
     }
 
     private function deserializeFiles(array $files) {
