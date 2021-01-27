@@ -58,8 +58,9 @@ class PythonInterpreter {
             $filenames = array_filter($filenames, function ($name) {
                 return $name !== "main.py";
             });
+            array_unshift( $filenames, "main.py");
         }
-        array_unshift( $filenames, "main.py");
+
 
         foreach ($filenames as $name) {
             $dockerRun .= ' '.$name;
