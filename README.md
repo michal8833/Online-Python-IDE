@@ -1,5 +1,24 @@
-## Online IDE for Python
-[write description here]
+# Online IDE for Python
+---
+Online IDE for python made with PHP and Laravel.
+## Main Features:
+- Managing Users
+    - Creating account
+    - User login to the account
+- Managing Projects
+    - Creating and deleting projects
+    - Renaming project
+    - Adding description to project
+    - Managing files:
+        - Creating new files
+        - Importing files.
+        - Editing and saving files.
+        - Renaming files.
+- Running projects
+    - Passing project files to interpreter (Docker)
+    - Passing cmd arguments to interpreter
+    - Showing project output (stdout and stderr)
+    - Managing simple input
 
 ## How to run correctly
 Run:
