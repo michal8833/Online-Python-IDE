@@ -1,6 +1,6 @@
 # Online IDE for Python
 ---
-Online IDE for python made with PHP and Laravel.
+Online IDE for Python made with PHP and Laravel.
 ## Main Features:
 - Managing Users
     - Creating account
